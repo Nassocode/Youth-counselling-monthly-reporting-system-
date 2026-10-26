@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="sw">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f5f1">
+  <title>Youth Counselling | Monthly Reports</title>
+  <link rel="stylesheet" href="/assets/css/app.css">
+  <script src="/assets/js/dashboard-metrics.js" defer></script>
+  <script src="/assets/js/app.js" defer></script>
+</head>
+<body>
+  <div class="app-frame">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Youth Counselling, home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="brand-name">Youth <strong>Counselling</strong></span>
+      </a>
+      <div class="topbar-actions">
+        <span class="organization-label" data-i18n="organization">Monthly reporting portal</span>
+        <label class="language-control">
+          <span class="sr-only" data-i18n="language">Language</span>
+          <select id="language-select" aria-label="Language">
+            <option value="sw">Kiswahili</option>
+            <option value="en">English</option>
+          </select>
+        </label>
+      </div>
+    </header>
+
+    <main id="main-content" class="main-content">
+      <section id="login-view" class="login-layout" aria-labelledby="login-title" hidden>
+        <div class="welcome-panel">
+          <div class="welcome-kicker"><span class="kicker-line"></span><span data-i18n="organization">Monthly reporting portal</span></div>
+          <h1 data-i18n="welcomeTitle">Kazi yenye maana. Ripoti zenye matokeo.</h1>
+          <p class="welcome-copy" data-i18n="welcomeBody">Tumia akaunti yako ya shirika kuingia kwenye mfumo wa ripoti za kila mwezi.</p>
+          <div class="login-features" aria-label="System features">
+            <span><span class="feature-check" aria-hidden="true">✓</span><span data-i18n="loginFeatureReports">Ripoti za kila mwezi</span></span>
+            <span><span class="feature-check" aria-hidden="true">✓</span><span data-i18n="loginFeatureReviews">Ukaguzi wa hatua kwa hatua</span></span>
+            <span><span class="feature-check" aria-hidden="true">✓</span><span data-i18n="loginFeatureHistory">Historia na ufuatiliaji</span></span>
+          </div>
+          <div class="welcome-meta"><span class="meta-dot"></span><span data-i18n="secureAccess">Ufikiaji salama wa shirika</span></div>
+        </div>
+        <div class="login-panel">
+          <div class="panel-heading">
+            <span class="login-panel-mark" aria-hidden="true"><span class="brand-mark"><span></span><span></span><span></span></span></span>
+            <span class="eyebrow" data-i18n="signInLabel">AKAUNTI YA SHIRIKA</span>
+            <h2 id="login-title" data-i18n="signIn">Ingia kwenye akaunti</h2>
+            <p data-i18n="signInHint">Tumia barua pepe na nenosiri ulilopewa.</p>
+          </div>
+          <form id="login-form">
+            <label class="field-label" for="email" data-i18n="email">Barua pepe</label>
+            <input id="email" name="email" type="email" autocomplete="username" required maxlength="254" placeholder="jina@shirika.org">
+            <label class="field-label password-label" for="password" data-i18n="password">Nenosiri</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required maxlength="200" placeholder="**********">
+            <p id="login-error" class="form-message" role="alert" hidden></p>
+            <button id="login-button" class="primary-button" type="submit"><span data-i18n="signIn">Ingia kwenye akaunti</span><span aria-hidden="true">&gt;</span></button>
+          </form>
+          <p class="privacy-note"><span class="lock-icon" aria-hidden="true"></span><span data-i18n="privacyNote">Taarifa za kuingia zinalindwa na mfumo salama.</span></p>
+        </div>
+        <footer class="site-attribution">
+          <span><span data-i18n="developedBy">Developed by</span>: Nassoro Amour Shekulamba</span>
+          <a href="tel:+255616957125"><span data-i18n="phoneNumber">Phone Number</span>: +255616957125</a>
+          <a href="mailto:nassoroamour63@gmail.com">nassoroamour63@gmail.com</a>
+        </footer>
+      </section>
+
+      <section id="dashboard-view" class="dashboard-layout" aria-labelledby="dashboard-title" hidden>
+        <aside class="sidebar">
+          <a class="sidebar-brand" href="#overview" aria-label="Youth Counselling dashboard">
+            <span class="sidebar-brand-mark" aria-hidden="true">Y</span>
+            <span><strong>Youth Counselling</strong><small data-i18n="systemName">Mfumo wa Ripoti za Ushauri kwa Vijana</small></span>
+          </a>
+          <div class="sidebar-label" data-i18n="workspace">ENEO LA KAZI</div>
+          <nav data-i18n-aria-label="mainNavigation" aria-label="Main navigation">
+            <a class="nav-link active" href="#overview" data-dashboard-page="overview" aria-current="page"><span class="nav-icon" aria-hidden="true">⌂</span><span data-i18n="overview">Muhtasari</span></a>
+            <a class="nav-link" href="#reports" data-dashboard-page="reports"><span class="nav-icon" aria-hidden="true">▤</span><span data-i18n="monthlyReporting">RIPOTI ZA KILA MWEZI</span><span class="nav-count" id="sidebar-report-count">0</span></a>
+            <a class="nav-link" href="#periods" data-dashboard-page="periods" data-nav-role="admin" hidden><span class="nav-icon" aria-hidden="true">◷</span><span data-i18n="reportingPeriods">Vipindi vya ripoti</span></a>
+            <a class="nav-link" href="#organization" data-dashboard-page="organization" data-nav-role="admin" hidden><span class="nav-icon" aria-hidden="true">⚙</span><span data-i18n="manageOrganization">Usimamizi wa shirika</span></a>
+          </nav>
+          <div class="sidebar-bottom">
+            <div class="sidebar-profile">
+              <span id="sidebar-avatar" class="sidebar-avatar">Y</span>
+              <span class="sidebar-user-copy"><strong id="sidebar-user-name">Account</strong><small id="sidebar-user-role"></small></span>
+            </div>
+          </div>
+        </aside>
+
+        <div class="dashboard-main">
+          <div class="dashboard-heading">
+            <div>
+              <div class="breadcrumb"><span data-i18n="overview">Muhtasari</span><span aria-hidden="true">/</span><span id="role-label"></span></div>
+              <h1 id="dashboard-title" data-i18n="dashboard">Dashibodi</h1>
+              <p id="greeting" class="dashboard-subtitle"></p>
+            </div>
+            <div class="account-tools">
+              <span class="role-chip" id="role-chip"></span>
+              <button id="notifications-toggle" class="quiet-button" type="button" aria-expanded="false" data-i18n="notifications">Arifa</button>
+              <button id="change-password-open" class="quiet-button" type="button" data-i18n="changePassword">Badilisha nenosiri</button>
+              <button id="logout-button" class="quiet-button" type="button" data-i18n="signOut">Toka</button>
+            </div>
+          </div>
+          <section id="notifications-panel" class="notifications-panel" aria-labelledby="notifications-heading" hidden>
+            <h2 id="notifications-heading" data-i18n="notifications">Arifa</h2>
+            <div id="notification-list" class="notification-list" aria-live="polite"></div>
+          </section>
+          <section id="overview-page" class="dashboard-page" data-dashboard-panel="overview" aria-labelledby="dashboard-title">
+            <section class="overview-welcome">
+              <div>
+                <span class="eyebrow" data-i18n="overviewWelcomeKicker">MUHTASARI WA SHIRIKA</span>
+                <h2><span data-i18n="welcomeBack">Karibu tena</span>, <span id="overview-user-name"></span></h2>
+                <p id="overview-welcome-copy"></p>
+              </div>
+              <span class="overview-date" id="overview-date"></span>
+            </section>
+            <section class="quick-access" aria-labelledby="quick-access-heading">
+              <div class="section-heading">
+                <div>
+                  <span class="eyebrow" data-i18n="quickAccessKicker">ENEO LA KAZI</span>
+                  <h2 id="quick-access-heading" data-i18n="quickAccess">Ufikiaji wa haraka</h2>
+                </div>
+              </div>
+              <div class="quick-access-grid">
+                <a class="quick-access-card" href="#reports" data-dashboard-page="reports">
+                  <span class="quick-access-icon" aria-hidden="true">▤</span>
+                  <span><strong data-i18n="monthlyReporting">RIPOTI ZA KILA MWEZI</strong><small data-i18n="quickReportsHint">Angalia ripoti zako na hatua za ukaguzi.</small></span>
+                  <span class="quick-access-arrow" aria-hidden="true">›</span>
+                </a>
+                <a class="quick-access-card" href="#reports" data-dashboard-page="reports" data-dashboard-role="member" data-dashboard-target="new-report" hidden>
+                  <span class="quick-access-icon" aria-hidden="true">＋</span>
+                  <span><strong data-i18n="newReport">Ripoti mpya</strong><small data-i18n="quickNewReportHint">Anza ripoti ya mwezi wa sasa.</small></span>
+                  <span class="quick-access-arrow" aria-hidden="true">›</span>
+                </a>
+                <a class="quick-access-card" href="#periods" data-dashboard-page="periods" data-nav-role="admin" hidden>
+                  <span class="quick-access-icon" aria-hidden="true">◷</span>
+                  <span><strong data-i18n="reportingPeriods">Vipindi vya ripoti</strong><small data-i18n="quickPeriodsHint">Fungua na simamia vipindi vya ripoti.</small></span>
+                  <span class="quick-access-arrow" aria-hidden="true">›</span>
+                </a>
+                <a class="quick-access-card" href="#organization" data-dashboard-page="organization" data-nav-role="admin" hidden>
+                  <span class="quick-access-icon" aria-hidden="true">⚙</span>
+                  <span><strong data-i18n="manageOrganization">Usimamizi wa shirika</strong><small data-i18n="quickOrganizationHint">Simamia akaunti, idara na assignments.</small></span>
+                  <span class="quick-access-arrow" aria-hidden="true">›</span>
+                </a>
+                <a class="quick-access-card" href="#organization" data-dashboard-page="organization" data-nav-role="admin" data-dashboard-target="user-form" hidden>
+                  <span class="quick-access-icon" aria-hidden="true">＋</span>
+                  <span><strong data-i18n="createAccount">Tengeneza akaunti</strong><small data-i18n="quickCreateAccountHint">Ongeza mtumiaji na jukumu lake.</small></span>
+                  <span class="quick-access-arrow" aria-hidden="true">›</span>
+                </a>
+                <a class="quick-access-card" href="#organization" data-dashboard-page="organization" data-nav-role="admin" data-dashboard-target="department-form" hidden>
+                  <span class="quick-access-icon" aria-hidden="true">＋</span>
+                  <span><strong data-i18n="addDepartment">Ongeza idara</strong><small data-i18n="quickAddDepartmentHint">Sajili idara mpya kwa ajili ya ripoti na wanachama.</small></span>
+                  <span class="quick-access-arrow" aria-hidden="true">›</span>
+                </a>
+                <a class="quick-access-card" href="#organization" data-dashboard-page="organization" data-nav-role="admin" data-dashboard-target="assignment-form" hidden>
+                  <span class="quick-access-icon" aria-hidden="true">↔</span>
+                  <span><strong data-i18n="assignDepartment">Panga mwanachama wa idara</strong><small data-i18n="quickAssignmentHint">Weka mkuu, msaidizi au mwanachama kwenye idara.</small></span>
+                  <span class="quick-access-arrow" aria-hidden="true">›</span>
+                </a>
+              </div>
+            </section>
+          </section>
+          <section id="reports-page" class="dashboard-page" data-dashboard-panel="reports" aria-labelledby="reports-heading" hidden></section>
+          <section id="periods-page" class="dashboard-page" data-dashboard-panel="periods" aria-labelledby="dashboard-title" hidden>
+            <p class="page-description" data-i18n="periodsPageHint">Fungua kipindi kipya na fuatilia tarehe na hali ya vipindi vilivyopo.</p>
+          </section>
+          <section id="organization-page" class="dashboard-page" data-dashboard-panel="organization" aria-labelledby="dashboard-title" hidden>
+            <p class="page-description" data-i18n="organizationPageHint">Dhibiti akaunti, idara na mgawanyo wa majukumu ya timu yako.</p>
+          </section>
+          <section id="reports-workspace" class="reports-workspace" aria-labelledby="reports-heading" hidden>
+            <section id="dashboard-stats" class="dashboard-stats" data-i18n-aria-label="reportSummary" aria-label="Report summary" aria-live="polite"></section>
+            <div class="workspace-toolbar">
+              <div>
+                <span id="reports-heading" class="eyebrow" data-i18n="monthlyReporting">RIPOTI ZA KILA MWEZI</span>
+                <p id="reporting-intro" class="workspace-intro"></p>
+              </div>
+              <div class="workspace-actions">
+                <a id="export-reports" class="quiet-button" href="/api/reports/export.csv" data-i18n="exportCsv" hidden>Pakua CSV</a>
+                <button id="new-report" class="quiet-button" type="button" data-i18n="newReport" hidden>Ripoti mpya</button>
+              </div>
+            </div>
+            <div class="report-filters">
+              <label class="filter-search" for="report-search">
+                <span class="sr-only" data-i18n="searchReports">Tafuta ripoti</span>
+                <input id="report-search" type="search" data-i18n-placeholder="searchReports" placeholder="Tafuta ripoti">
+              </label>
+              <label class="filter-status" for="report-status">
+                <span class="sr-only" data-i18n="filterStatus">Chuja kwa hali</span>
+                <select id="report-status" data-i18n-aria-label="filterStatus" aria-label="Filter by status">
+                  <option value="all" data-i18n="allStatuses">Hali zote</option>
+                  <option value="draft" data-i18n="status_draft">Rasimu</option>
+                  <option value="submitted" data-i18n="status_submitted">Imewasilishwa</option>
+                  <option value="returned" data-i18n="status_returned">Imerejeshwa</option>
+                  <option value="secretary_review" data-i18n="status_secretary_review">Ukaguzi wa katibu</option>
+                  <option value="vice_review" data-i18n="status_vice_review">Ukaguzi wa makamu mwenyekiti</option>
+                  <option value="chair_review" data-i18n="status_chair_review">Ukaguzi wa mwenyekiti</option>
+                  <option value="approved" data-i18n="status_approved">Imeidhinishwa</option>
+                  <option value="rejected" data-i18n="status_rejected">Imekataliwa</option>
+                </select>
+              </label>
+              <span id="report-result-count" class="result-count" aria-live="polite"></span>
+            </div>
+
+            <form id="period-form" class="period-form" hidden>
+              <h2 data-i18n="createPeriod">Fungua kipindi cha ripoti</h2>
+              <div class="period-fields">
+                <label class="field-label" for="period-year"><span data-i18n="year">Mwaka</span>
+                  <input id="period-year" name="year" type="number" min="2000" max="2100" required>
+                </label>
+                <label class="field-label" for="period-month"><span data-i18n="month">Mwezi</span>
+                  <select id="period-month" name="month" required></select>
+                </label>
+                <label class="field-label" for="period-opens"><span data-i18n="opensAt">Tarehe ya kuanza</span>
+                  <input id="period-opens" name="opensAt" type="date" required>
+                </label>
+                <label class="field-label" for="period-closes"><span data-i18n="closesAt">Tarehe ya mwisho</span>
+                  <input id="period-closes" name="closesAt" type="date" required>
+                </label>
+              </div>
+              <p id="period-error" class="form-message" role="alert" hidden></p>
+              <button class="quiet-button" type="submit" data-i18n="createPeriod">Fungua kipindi cha ripoti</button>
+              <div class="period-list-wrap">
+                <h3 data-i18n="reportingPeriods">Vipindi vya ripoti</h3>
+                <div id="period-list" class="period-list"></div>
+              </div>
+            </form>
+
+            <section id="admin-workspace" class="admin-workspace" hidden>
+              <section class="setup-checklist" aria-labelledby="setup-checklist-heading">
+                <h3 id="setup-checklist-heading" data-i18n="setupChecklist">Orodha ya maandalizi</h3>
+                <p id="setup-checklist-summary" aria-live="polite"></p>
+                <ul id="setup-checklist-items"></ul>
+              </section>
+              <div class="admin-columns">
+                <form id="user-form" class="admin-form">
+                  <h3 data-i18n="createAccount">Tengeneza akaunti</h3>
+                  <label class="field-label" for="user-name"><span data-i18n="displayName">Jina kamili</span>
+                    <input id="user-name" name="displayName" maxlength="150" required>
+                  </label>
+                  <label class="field-label" for="user-email"><span data-i18n="email">Barua pepe</span>
+                    <input id="user-email" name="email" type="email" maxlength="254" required>
+                  </label>
+                  <label class="field-label" for="user-password"><span data-i18n="temporaryPassword">Nenosiri la muda (angalau herufi 14)</span>
+                    <input id="user-password" name="password" type="password" minlength="8" maxlength="200" required>
+                  </label>
+                  <label class="field-label" for="user-role"><span data-i18n="role">Jukumu</span>
+                    <select id="user-role" name="role" required></select>
+                  </label>
+                  <p id="user-error" class="form-message" role="alert" hidden></p>
+                  <button class="quiet-button" type="submit" data-i18n="createAccount">Tengeneza akaunti</button>
+                </form>
+                <form id="department-form" class="admin-form">
+                  <h3 data-i18n="addDepartment">Ongeza idara</h3>
+                  <label class="field-label" for="department-name"><span data-i18n="departmentName">Jina la idara</span>
+                    <input id="department-name" name="name" maxlength="150" required>
+                  </label>
+                  <label class="field-label" for="department-description"><span data-i18n="description">Maelezo</span>
+                    <textarea id="department-description" name="description" maxlength="5000" rows="3"></textarea>
+                  </label>
+                  <p id="department-error" class="form-message" role="alert" hidden></p>
+                  <button class="quiet-button" type="submit" data-i18n="addDepartment">Ongeza idara</button>
+                </form>
+                <form id="assignment-form" class="admin-form">
+                  <h3 data-i18n="assignDepartment">Weka wanachama wa idara</h3>
+                  <label class="field-label" for="assignment-department"><span data-i18n="department">Idara</span>
+                    <select id="assignment-department" name="departmentId" required></select>
+                  </label>
+                  <label class="field-label" for="assignment-user"><span data-i18n="account">Akaunti</span>
+                    <select id="assignment-user" name="userId" required></select>
+                  </label>
+                  <label class="field-label" for="assignment-role"><span data-i18n="departmentRole">Jukumu ndani ya idara</span>
+                    <select id="assignment-role" name="membershipRole" required>
+                      <option value="head" data-i18n="departmentHead">Mkuu wa idara</option>
+                      <option value="assistant" data-i18n="assistant">Msaidizi</option>
+                      <option value="member" data-i18n="member">Mwanachama</option>
+                    </select>
+                  </label>
+                  <p id="assignment-error" class="form-message" role="alert" hidden></p>
+                  <button class="quiet-button" type="submit" data-i18n="assignDepartment">Weka mwanachama</button>
+                </form>
+              </div>
+              <div class="admin-lists">
+                <section aria-labelledby="accounts-heading">
+                  <div class="admin-list-heading">
+                    <h3 id="accounts-heading" data-i18n="accounts">Akaunti</h3>
+                    <span id="user-list-count" class="admin-result-count" aria-live="polite"></span>
+                  </div>
+                  <div class="admin-list-filters">
+                    <label class="sr-only" for="user-search" data-i18n="searchAccounts">Tafuta akaunti</label>
+                    <input id="user-search" type="search" data-i18n-placeholder="searchAccounts" placeholder="Tafuta kwa jina au barua pepe">
+                    <label class="sr-only" for="user-role-filter" data-i18n="filterRole">Chuja kwa jukumu</label>
+                    <select id="user-role-filter" data-i18n-aria-label="filterRole" aria-label="Chuja kwa jukumu">
+                      <option value="all" data-i18n="allRoles">Majukumu yote</option>
+                    </select>
+                    <label class="sr-only" for="user-status-filter" data-i18n="filterAccountStatus">Chuja hali ya akaunti</label>
+                    <select id="user-status-filter" data-i18n-aria-label="filterAccountStatus" aria-label="Chuja hali ya akaunti">
+                      <option value="all" data-i18n="allAccountStatuses">Hali zote</option>
+                      <option value="active" data-i18n="active">Inatumika</option>
+                      <option value="inactive" data-i18n="inactive">Imesimamishwa</option>
+                    </select>
+                  </div>
+                  <div id="user-list" class="admin-list"></div>
+                </section>
+                <section><h3 data-i18n="departments">Idara</h3><div id="department-list" class="admin-list"></div></section>
+              </div>
+            </section>
+
+            <form id="report-form" class="report-form" hidden>
+              <h2 id="report-form-title" data-i18n="newReport">Ripoti mpya</h2>
+              <div class="report-selects">
+                <label class="field-label" for="report-period"><span data-i18n="reportingPeriod">Kipindi cha ripoti</span>
+                  <select id="report-period" name="periodId" required></select>
+                </label>
+                <label class="field-label" for="report-department"><span data-i18n="department">Idara</span>
+                  <select id="report-department" name="departmentId" required></select>
+                </label>
+              </div>
+              <label class="field-label" for="report-title"><span data-i18n="reportTitle">Kichwa cha ripoti</span>
+                <input id="report-title" name="title" maxlength="200">
+              </label>
+              <label class="field-label" for="report-objectives"><span data-i18n="mainObjectives">Malengo makuu</span>
+                <textarea id="report-objectives" name="mainObjectives" maxlength="10000" rows="3"></textarea>
+              </label>
+              <label class="field-label" for="report-summary"><span data-i18n="summary">Muhtasari</span>
+                <textarea id="report-summary" name="summary" maxlength="5000" rows="3"></textarea>
+              </label>
+              <label class="field-label" for="report-activities"><span data-i18n="activities">Shughuli zilizofanyika</span>
+                <textarea id="report-activities" name="activities" maxlength="10000" rows="4"></textarea>
+              </label>
+              <label class="field-label" for="report-achievements"><span data-i18n="achievements">Mafanikio</span>
+                <textarea id="report-achievements" name="achievements" maxlength="10000" rows="3"></textarea>
+              </label>
+              <label class="field-label" for="report-challenges"><span data-i18n="challenges">Changamoto</span>
+                <textarea id="report-challenges" name="challenges" maxlength="10000" rows="3"></textarea>
+              </label>
+              <label class="field-label" for="report-solutions"><span data-i18n="solutions">Suluhisho</span>
+                <textarea id="report-solutions" name="solutions" maxlength="10000" rows="3"></textarea>
+              </label>
+              <label class="field-label" for="report-referrals"><span data-i18n="referrals">Rufaa</span>
+                <textarea id="report-referrals" name="referrals" maxlength="5000" rows="3"></textarea>
+              </label>
+              <label class="field-label" for="report-recommendations"><span data-i18n="recommendations">Mapendekezo</span>
+                <textarea id="report-recommendations" name="recommendations" maxlength="10000" rows="3"></textarea>
+              </label>
+              <label class="field-label" for="report-plan"><span data-i18n="nextMonthPlan">Mpango wa mwezi ujao</span>
+                <textarea id="report-plan" name="nextMonthPlan" maxlength="10000" rows="3"></textarea>
+              </label>
+              <label class="field-label" for="report-remarks"><span data-i18n="remarks">Maoni ya ziada</span>
+                <textarea id="report-remarks" name="remarks" maxlength="10000" rows="3"></textarea>
+              </label>
+              <div class="report-counts">
+                <label class="field-label" for="report-beneficiaries"><span data-i18n="beneficiariesReached">Vijana waliofikiwa</span>
+                  <input id="report-beneficiaries" name="beneficiariesReached" type="number" min="0" max="10000000" value="0">
+                </label>
+                <label class="field-label" for="report-sessions"><span data-i18n="sessionsHeld">Vikao vya ushauri</span>
+                  <input id="report-sessions" name="sessionsHeld" type="number" min="0" max="10000000" value="0">
+                </label>
+                <label class="field-label" for="report-individual-sessions"><span data-i18n="individualSessions">Vikao binafsi</span>
+                  <input id="report-individual-sessions" name="individualSessions" type="number" min="0" max="10000000" value="0">
+                </label>
+                <label class="field-label" for="report-group-sessions"><span data-i18n="groupSessions">Vikao vya vikundi</span>
+                  <input id="report-group-sessions" name="groupSessions" type="number" min="0" max="10000000" value="0">
+                </label>
+                <label class="field-label" for="report-outreach"><span data-i18n="outreachActivities">Shughuli za uhamasishaji</span>
+                  <input id="report-outreach" name="outreachActivities" type="number" min="0" max="10000000" value="0">
+                </label>
+              </div>
+              <p id="report-error" class="form-message" role="alert" hidden></p>
+              <div class="report-form-actions">
+                <button id="cancel-report" class="quiet-button" type="button" data-i18n="cancel">Ghairi</button>
+                <button id="save-report" class="quiet-button" type="submit" data-i18n="saveDraft">Hifadhi rasimu</button>
+                <button id="submit-report" class="primary-button" type="button" data-i18n="submitReport">Wasilisha ripoti</button>
+              </div>
+            </form>
+
+            <div id="report-list" class="report-list" aria-live="polite"></div>
+          </section>
+          <footer class="dashboard-footer">
+            <span class="footer-system-name" data-i18n="systemName">Mfumo wa Ripoti za Ushauri kwa Vijana</span>
+            <span class="footer-credit"><span data-i18n="developedBy">Developed by</span>: Nassoro Amour Shekulamba</span>
+            <a class="footer-contact" href="tel:+255616957125"><span data-i18n="phoneNumber">Phone Number</span>: +255616957125</a>
+            <a class="footer-contact" href="mailto:nassoroamour63@gmail.com">nassoroamour63@gmail.com</a>
+          </footer>
+        </div>
+      </section>
+    </main>
+    <dialog id="password-dialog" class="password-dialog" aria-labelledby="password-dialog-title">
+      <form id="change-password-form" novalidate>
+        <div class="password-dialog-heading">
+          <div>
+            <span class="eyebrow" data-i18n="accountSecurity">USALAMA WA AKAUNTI</span>
+            <h2 id="password-dialog-title" data-i18n="changePassword">Badilisha nenosiri</h2>
+          </div>
+          <button id="close-password-dialog" class="dialog-close" type="button" data-i18n-aria-label="closeDialog" aria-label="Close dialog">×</button>
+        </div>
+        <p class="password-dialog-hint" data-i18n="passwordChangeHint">Thibitisha nenosiri lako la sasa na uchague jipya lenye angalau herufi 8.</p>
+        <label class="field-label" for="current-password" data-i18n="currentPassword">Nenosiri la sasa</label>
+        <input id="current-password" name="currentPassword" type="password" autocomplete="current-password" maxlength="200" required>
+        <label class="field-label" for="new-password" data-i18n="newPassword">Nenosiri jipya</label>
+        <input id="new-password" name="newPassword" type="password" autocomplete="new-password" minlength="8" maxlength="200" required>
+        <label class="field-label" for="confirm-password" data-i18n="confirmNewPassword">Rudia nenosiri jipya</label>
+        <input id="confirm-password" name="confirmPassword" type="password" autocomplete="new-password" minlength="8" maxlength="200" required>
+        <p id="password-change-error" class="form-message" role="alert" hidden></p>
+        <div class="password-dialog-actions">
+          <button id="cancel-password-change" class="quiet-button" type="button" data-i18n="cancel">Ghairi</button>
+          <button id="save-password" class="primary-button" type="submit" data-i18n="savePassword">Hifadhi nenosiri</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="global-message" class="global-message" role="status" hidden></div>
+  </div>
+</body>
+</html>

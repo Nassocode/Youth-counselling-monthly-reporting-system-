@@ -1,0 +1,26 @@
+{
+  "name": "youth-counselling-monthly-report-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Youth Counselling Monthly Report Submit System",
+  "main": "Backend/src/server.js",
+  "scripts": {
+    "start": "node Backend/src/server.js",
+    "dev": "node --watch Backend/src/server.js",
+    "create-admin": "node Backend/src/scripts/create-admin.js",
+    "reset-admin-password": "node Backend/src/scripts/reset-admin-password.js",
+    "migrate:workflow": "node Backend/src/scripts/migrate-workflow.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.3"
+  }
+}
